@@ -22,10 +22,11 @@ import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.LinearGradient;
 import javafx.scene.paint.Stop;
 import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.GridPane;
 
 
 
-// import denn.bismillahproject.confiq.DbConnect;
+
 
 public class App extends Application {
 
@@ -49,90 +50,90 @@ public class App extends Application {
 
 
 
-  private void sceneSignUp() {
+   private void scene3() {
 
-        Label titleLabel = new Label("Daftar Akun");
-        titleLabel.setStyle("-fx-font-family: 'Sans-Serif'; -fx-font-size: 24px; -fx-font-weight: bold;");
-        titleLabel.setTextFill(Color.WHITE);
-        HBox titleBox = new HBox(titleLabel);
-        titleBox.setAlignment(Pos.CENTER);
+        Label heightLabel = new Label("Height (m)");
+        heightField = new TextField();
+        heightLabel.setTextFill(Color.WHITE);
+        heightField.setPromptText("Enter");
 
-        Label usernameLabel = new Label("Username");
-        TextField usernameInput = new TextField();
-        usernameInput.setPromptText("Masukkan Username");
-        VBox usernameBox = new VBox(usernameLabel, usernameInput);
-        usernameBox.setSpacing(5);
-
-        Label passwordLabel = new Label("Password");
-        PasswordField passwordInput = new PasswordField();
-        passwordInput.setPromptText("Masukkan Password");
-        VBox passwordBox = new VBox(passwordLabel, passwordInput);
-        passwordBox.setSpacing(5);
-
-        Label labelError = new Label();
-        labelError.setStyle("-fx-font-size: 10px; -fx-text-fill: RED; -fx-font-family: 'Sans-Serif';");
-        labelError.setAlignment(Pos.CENTER);
-
-        Button daftarButton = new Button("Daftar");
-        daftarButton.setTextFill(Color.WHITE);
-        daftarButton.setBackground(new Background(new BackgroundFill(Color.BLUE, new CornerRadii(300), Insets.EMPTY)));
-        daftarButton.setPadding(new Insets(10, 20, 20, 20));
-        daftarButton.setMaxWidth(125);
-        daftarButton.setMinHeight(50);
-
-        daftarButton.setOnAction(event -> {
-            String username = usernameInput.getText();
-            String password = passwordInput.getText();
+        Label weightLabel = new Label("Weight (kg)");
+        weightField = new TextField();
+        weightLabel.setTextFill(Color.WHITE);
+        weightField.setPromptText("Enter");
         
-            if (username.isEmpty() || password.isEmpty()) {
-                labelError.setText("tolong masukkan username dan password");
-                labelError.setTextFill(Color.WHITE);
-            } else if (DbConnect.checkUsername(username)) {
-                labelError.setText("Username Is Taken");
-            } else if (!DbConnect.validatePassword(password)) {
-                labelError.setText("Paswword salah. Password harus berisi  minimal 3 characters, maksimal 10 characters, setidaknya 1 angka dan  1 Huruf besar");
-            } else {
-                DbConnect.insertData(username, password);
-                labelError.setText("Registration Successful!");
-                PauseTransition pause = new PauseTransition(Duration.seconds(1));
-                pause.setOnFinished(e -> scene2());
-                pause.play();
-            }
-        });
+        Label bmiLabel = new Label("BMI");
+        bmiField = new TextField();
+        bmiLabel.setTextFill(Color.WHITE);
+        bmiField.setEditable(false);
 
-        Label sudahPunyaAkunLabel = new Label("Sudah punya akun?");
-        sudahPunyaAkunLabel.setTextFill(Color.WHITE);
-        Hyperlink masukLink = new Hyperlink("Masuk");
-        HBox masukBox = new HBox(5, sudahPunyaAkunLabel, masukLink);
-        masukBox.setAlignment(Pos.CENTER);
-        masukLink.setOnAction(e -> sceneLogin());
+        GridPane inputGrid = new GridPane();
+        inputGrid.setAlignment(Pos.CENTER);
+        inputGrid.setHgap(10);
+        inputGrid.setVgap(10);
+        inputGrid.setPadding(new Insets(25, 25, 25, 25));
 
-        VBox vBox = new VBox(10, titleBox, usernameBox, passwordBox, labelError, daftarButton, masukBox);
-        vBox.setAlignment(Pos.CENTER);
-        vBox.setPadding(new Insets(20));
-        vBox.setMaxWidth(400);
+        inputGrid.add(heightLabel, 0, 0);
+        inputGrid.add(heightField, 1, 0);
+        inputGrid.add(weightLabel, 0, 1);
+        inputGrid.add(weightField, 1, 1);
+        inputGrid.add(bmiLabel, 0, 2);
+        inputGrid.add(bmiField, 1, 2);
 
-    Color maroonColor = Color.rgb(128, 0, 0); 
-    Color darkMaroonColor = Color.rgb(102, 0, 0); 
-    Color lightMaroonColor = Color.rgb(153, 0, 0); 
+        Button calculateButton = new Button("Calculate");
+        calculateButton.setOnAction(event -> calculateBMI());
 
-   
-    LinearGradient gradient = new LinearGradient(
-    0, 0, 0, 1, true, CycleMethod.NO_CYCLE,
-    new Stop(0, maroonColor),
-    new Stop(0.3, darkMaroonColor),
-    new Stop(0.6, lightMaroonColor),
-    new Stop(1, maroonColor)
-    );
+        Button clearButton = new Button("Clear");
+        clearButton.setOnAction(event -> clearFields());
 
+        Button exitButton = new Button("Exit");
+        exitButton.setOnAction(event -> stage.close());
 
-    vBox.setBackground(new Background( new BackgroundFill(gradient, CornerRadii.EMPTY, Insets.EMPTY)));
-        Scene signUpScene = new Scene(vBox, 620, 400);
-        stage.setScene(signUpScene);
+        HBox buttonBox = new HBox(10, calculateButton, clearButton, exitButton);
+        buttonBox.setAlignment(Pos.CENTER);
+        VBox vbox = new VBox(10, inputGrid, buttonBox);
+
+        Image image = new Image("/bmi.jpeg");
+        ImageView imageView = new ImageView(image);
+
+        VBox root = new VBox(2, vbox, imageView);
+        root.setAlignment(Pos.CENTER);
+        root.setPadding(new Insets(10));
+
+        Color maroonColor = Color.rgb(128, 0, 0); 
+        Color darkMaroonColor = Color.rgb(102, 0, 0); 
+        Color lightMaroonColor = Color.rgb(153, 0, 0); 
+
+        LinearGradient gradient = new LinearGradient(
+            0, 0, 0, 1, true, CycleMethod.NO_CYCLE,
+            new Stop(0, maroonColor),
+            new Stop(0.3, darkMaroonColor),
+            new Stop(0.6, lightMaroonColor),
+            new Stop(1, maroonColor)
+        );
+
+        root.setBackground(new Background( new BackgroundFill(gradient, CornerRadii.EMPTY, Insets.EMPTY)));
+
+        Scene scene3 = new Scene(root, 620, 400);
+        stage.setScene(scene3);
     }
 
+    private void calculateBMI() {
+        try {
+            double height = Double.parseDouble(heightField.getText());
+            double weight = Double.parseDouble(weightField.getText());
+            double bmi = weight / (height * height);
+            bmiField.setText(String.format("%.2f", bmi));
+        } catch (NumberFormatException e) {
+            bmiField.setText("Invalid input");
+        }
+    }
 
-
+    private void clearFields() {
+        heightField.clear();
+        weightField.clear();
+        bmiField.clear();
+    }
 
 
 
