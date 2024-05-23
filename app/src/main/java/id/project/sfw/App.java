@@ -1,11 +1,14 @@
 package id.project.sfw;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import id.project.sfw.confiq.DbConnect;
+import javafx.animation.PauseTransition;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -46,95 +49,87 @@ public class App extends Application {
 
 
 
-  private void sceneLogin() {
-       
+  private void sceneSignUp() {
 
-        Label label = new Label("Login Page");
-        label.setStyle("-fx-font-family: 'Sans-Serif'; -fx-font-size: 30px; -fx-font-weight: bold;");
-        label.setTextFill(Color.WHITE);
-        HBox hBox1 = new HBox(label);
-        hBox1.setAlignment(Pos.CENTER);
+        Label titleLabel = new Label("Daftar Akun");
+        titleLabel.setStyle("-fx-font-family: 'Sans-Serif'; -fx-font-size: 24px; -fx-font-weight: bold;");
+        titleLabel.setTextFill(Color.WHITE);
+        HBox titleBox = new HBox(titleLabel);
+        titleBox.setAlignment(Pos.CENTER);
 
         Label usernameLabel = new Label("Username");
-        usernameLabel.setStyle("-fx-font-family: 'Sans-Serif'; -fx-font-size: 16px; -fx-font-weight: bold;");
-        usernameLabel.setTextFill(Color.WHITE);
         TextField usernameInput = new TextField();
-        usernameInput.setStyle("-fx-font-family: 'Sans-Serif'; -fx-font-size: 14px; -fx-border-color: #000000;");
-        usernameInput.setAlignment(Pos.CENTER);
-        usernameInput.setMaxWidth(200);
+        usernameInput.setPromptText("Masukkan Username");
+        VBox usernameBox = new VBox(usernameLabel, usernameInput);
+        usernameBox.setSpacing(5);
 
         Label passwordLabel = new Label("Password");
-        passwordLabel.setStyle("-fx-font-family: 'Sans-Serif'; -fx-font-size: 16px; -fx-font-weight: bold;");
-        passwordLabel.setTextFill(Color.WHITE);
         PasswordField passwordInput = new PasswordField();
-        passwordInput.setStyle("-fx-font-family: 'Sans-Serif'; -fx-font-size: 14px; -fx-border-color: #000000;");
-        passwordInput.setAlignment(Pos.CENTER);
-        passwordInput.setMaxWidth(200);
+        passwordInput.setPromptText("Masukkan Password");
+        VBox passwordBox = new VBox(passwordLabel, passwordInput);
+        passwordBox.setSpacing(5);
 
-        VBox vBox1 = new VBox(usernameLabel, usernameInput, passwordLabel, passwordInput);
-        vBox1.setAlignment(Pos.CENTER);
-        vBox1.setSpacing(10);
+        Label labelError = new Label();
+        labelError.setStyle("-fx-font-size: 10px; -fx-text-fill: RED; -fx-font-family: 'Sans-Serif';");
+        labelError.setAlignment(Pos.CENTER);
 
-        Button loginButton = new Button("LOGIN");
+        Button daftarButton = new Button("Daftar");
+        daftarButton.setTextFill(Color.WHITE);
+        daftarButton.setBackground(new Background(new BackgroundFill(Color.BLUE, new CornerRadii(300), Insets.EMPTY)));
+        daftarButton.setPadding(new Insets(10, 20, 20, 20));
+        daftarButton.setMaxWidth(125);
+        daftarButton.setMinHeight(50);
 
-        Color newColor = Color.web("F4EEE0");
-        loginButton.setBackground(new Background(new BackgroundFill(newColor, new CornerRadii(100), Insets.EMPTY)));
-        loginButton.setPadding(new Insets(5, 10, 10, 10));
-        loginButton.setMaxWidth(125);
-        loginButton.setMinHeight(0);
-
-
-
-
-
-        Button backButton = new Button("BACK");
-        backButton.setTextFill(Color.WHITE);
-        backButton.setBackground(new Background(new BackgroundFill(Color.RED, new CornerRadii(100), Insets.EMPTY)));
-        backButton.setPadding(new Insets(5, 10, 10, 10));
-        backButton.setMaxWidth(125);
-        backButton.setMinHeight(0);
-        // backButton.setOnAction(v -> scene2());
-
-        VBox vBox2 = new VBox(loginButton, backButton);
-        vBox2.setAlignment(Pos.CENTER);
-    
-        vBox2.setMinHeight(50);
-        // vBox2.setId("button");
-        vBox2.setSpacing(10);
-
-        VBox vBox = new VBox(20, hBox1, vBox1, vBox2);
-        vBox.setAlignment(Pos.CENTER);
-
-        Color maroonColor = Color.rgb(128, 0, 0); 
-        Color darkMaroonColor = Color.rgb(102, 0, 0); 
-        Color lightMaroonColor = Color.rgb(153, 0, 0); 
-    
-        LinearGradient gradient = new LinearGradient(
-                0, 0, 0, 1, true, CycleMethod.NO_CYCLE,
-                new Stop(0, maroonColor),
-                new Stop(0.3, darkMaroonColor),
-                new Stop(0.6, lightMaroonColor),
-                new Stop(1, maroonColor)
-        );
-    
-      
-        vBox.setBackground(new Background( new BackgroundFill(gradient, CornerRadii.EMPTY, Insets.EMPTY)));
-       
-        Scene sceneLogin = new Scene(vBox, 620, 400);
-        stage.setScene(sceneLogin);
-
-        loginButton.setOnAction(event -> {
+        daftarButton.setOnAction(event -> {
             String username = usernameInput.getText();
             String password = passwordInput.getText();
-
-            if (DbConnect.ValidasiLogin(username, password)) {
-                // scene3(); 
+        
+            if (username.isEmpty() || password.isEmpty()) {
+                labelError.setText("tolong masukkan username dan password");
+                labelError.setTextFill(Color.WHITE);
+            } else if (DbConnect.checkUsername(username)) {
+                labelError.setText("Username Is Taken");
+            } else if (!DbConnect.validatePassword(password)) {
+                labelError.setText("Paswword salah. Password harus berisi  minimal 3 characters, maksimal 10 characters, setidaknya 1 angka dan  1 Huruf besar");
             } else {
-                System.out.println("Login Failed");
+                DbConnect.insertData(username, password);
+                labelError.setText("Registration Successful!");
+                PauseTransition pause = new PauseTransition(Duration.seconds(1));
+                pause.setOnFinished(e -> scene2());
+                pause.play();
             }
         });
-    }
 
+        Label sudahPunyaAkunLabel = new Label("Sudah punya akun?");
+        sudahPunyaAkunLabel.setTextFill(Color.WHITE);
+        Hyperlink masukLink = new Hyperlink("Masuk");
+        HBox masukBox = new HBox(5, sudahPunyaAkunLabel, masukLink);
+        masukBox.setAlignment(Pos.CENTER);
+        masukLink.setOnAction(e -> sceneLogin());
+
+        VBox vBox = new VBox(10, titleBox, usernameBox, passwordBox, labelError, daftarButton, masukBox);
+        vBox.setAlignment(Pos.CENTER);
+        vBox.setPadding(new Insets(20));
+        vBox.setMaxWidth(400);
+
+    Color maroonColor = Color.rgb(128, 0, 0); 
+    Color darkMaroonColor = Color.rgb(102, 0, 0); 
+    Color lightMaroonColor = Color.rgb(153, 0, 0); 
+
+   
+    LinearGradient gradient = new LinearGradient(
+    0, 0, 0, 1, true, CycleMethod.NO_CYCLE,
+    new Stop(0, maroonColor),
+    new Stop(0.3, darkMaroonColor),
+    new Stop(0.6, lightMaroonColor),
+    new Stop(1, maroonColor)
+    );
+
+
+    vBox.setBackground(new Background( new BackgroundFill(gradient, CornerRadii.EMPTY, Insets.EMPTY)));
+        Scene signUpScene = new Scene(vBox, 620, 400);
+        stage.setScene(signUpScene);
+    }
 
 
 
