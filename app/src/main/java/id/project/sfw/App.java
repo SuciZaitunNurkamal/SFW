@@ -1,11 +1,14 @@
 package id.project.sfw;
 import javafx.stage.Stage;
+import id.project.sfw.confiq.DbConnect;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -43,58 +46,94 @@ public class App extends Application {
 
 
 
-    private void scene2() {
-        Label labelMenu = new Label("PILIH MENU");
+  private void sceneLogin() {
+       
 
-       labelMenu.setStyle("-fx-font-family: 'Sans-Serif'; -fx-font-size: 25px; -fx-font-weight: bold;");
-       labelMenu.setTextFill(Color.WHITE);
-       HBox hBox1 = new HBox(labelMenu);
-       hBox1.setAlignment(Pos.CENTER);
+        Label label = new Label("Login Page");
+        label.setStyle("-fx-font-family: 'Sans-Serif'; -fx-font-size: 30px; -fx-font-weight: bold;");
+        label.setTextFill(Color.WHITE);
+        HBox hBox1 = new HBox(label);
+        hBox1.setAlignment(Pos.CENTER);
 
-       Button btnLogin = new Button("LOGIN");
-       btnLogin.setTextFill(Color.WHITE);
-       btnLogin.setBackground(new Background(new BackgroundFill(Color.BLUE, new CornerRadii(100), Insets.EMPTY)));
-       btnLogin.setPadding(new Insets(10, 20, 20, 20));
-       btnLogin.setMaxWidth(150);
-       btnLogin.setMinHeight(50);
-       btnLogin.setOnAction(v -> {
-        //    sceneLogin();
-       });
+        Label usernameLabel = new Label("Username");
+        usernameLabel.setStyle("-fx-font-family: 'Sans-Serif'; -fx-font-size: 16px; -fx-font-weight: bold;");
+        usernameLabel.setTextFill(Color.WHITE);
+        TextField usernameInput = new TextField();
+        usernameInput.setStyle("-fx-font-family: 'Sans-Serif'; -fx-font-size: 14px; -fx-border-color: #000000;");
+        usernameInput.setAlignment(Pos.CENTER);
+        usernameInput.setMaxWidth(200);
 
-       Button btnSignUp = new Button("SIGN UP");
-       btnSignUp.setTextFill(Color.WHITE);
-       btnSignUp.setBackground(new Background(new BackgroundFill(Color.BLUE, new CornerRadii(100), Insets.EMPTY)));
-       btnSignUp.setPadding(new Insets(10, 20, 20, 20));
-       btnSignUp.setMaxWidth(150);
-       btnSignUp.setMinHeight(50);
-       btnSignUp.setOnAction(v -> {
-        //    sceneSignUp();
-       });
+        Label passwordLabel = new Label("Password");
+        passwordLabel.setStyle("-fx-font-family: 'Sans-Serif'; -fx-font-size: 16px; -fx-font-weight: bold;");
+        passwordLabel.setTextFill(Color.WHITE);
+        PasswordField passwordInput = new PasswordField();
+        passwordInput.setStyle("-fx-font-family: 'Sans-Serif'; -fx-font-size: 14px; -fx-border-color: #000000;");
+        passwordInput.setAlignment(Pos.CENTER);
+        passwordInput.setMaxWidth(200);
 
-       VBox vBox1 = new VBox(btnLogin, btnSignUp);
-       vBox1.setAlignment(Pos.CENTER);
-       vBox1.setSpacing(10);
-       vBox1.setMaxWidth(250);
+        VBox vBox1 = new VBox(usernameLabel, usernameInput, passwordLabel, passwordInput);
+        vBox1.setAlignment(Pos.CENTER);
+        vBox1.setSpacing(10);
 
-       VBox vBox = new VBox(10, hBox1, vBox1);
-       vBox.setAlignment(Pos.CENTER);
+        Button loginButton = new Button("LOGIN");
 
-       LinearGradient gradient = new LinearGradient(
-           0, 0, 0, 1, true, CycleMethod.NO_CYCLE,
-           new Stop(0, Color.web("#00B2FF")),     
-           new Stop(0.3, Color.web("#87CEFA")),   
-           new Stop(0.6, Color.web("#E0FFFF")),   
-           new Stop(1, Color.web("#FFFFFF"))      
-       );
-
-       vBox.setBackground(new Background(new BackgroundFill(gradient, CornerRadii.EMPTY, Insets.EMPTY)));
-
-       Scene scene2 = new Scene(vBox, 620, 400);
-       stage.setTitle("BCC");
-       stage.setScene(scene2);
-   }
+        Color newColor = Color.web("F4EEE0");
+        loginButton.setBackground(new Background(new BackgroundFill(newColor, new CornerRadii(100), Insets.EMPTY)));
+        loginButton.setPadding(new Insets(5, 10, 10, 10));
+        loginButton.setMaxWidth(125);
+        loginButton.setMinHeight(0);
 
 
+
+
+
+        Button backButton = new Button("BACK");
+        backButton.setTextFill(Color.WHITE);
+        backButton.setBackground(new Background(new BackgroundFill(Color.RED, new CornerRadii(100), Insets.EMPTY)));
+        backButton.setPadding(new Insets(5, 10, 10, 10));
+        backButton.setMaxWidth(125);
+        backButton.setMinHeight(0);
+        // backButton.setOnAction(v -> scene2());
+
+        VBox vBox2 = new VBox(loginButton, backButton);
+        vBox2.setAlignment(Pos.CENTER);
+    
+        vBox2.setMinHeight(50);
+        // vBox2.setId("button");
+        vBox2.setSpacing(10);
+
+        VBox vBox = new VBox(20, hBox1, vBox1, vBox2);
+        vBox.setAlignment(Pos.CENTER);
+
+        Color maroonColor = Color.rgb(128, 0, 0); 
+        Color darkMaroonColor = Color.rgb(102, 0, 0); 
+        Color lightMaroonColor = Color.rgb(153, 0, 0); 
+    
+        LinearGradient gradient = new LinearGradient(
+                0, 0, 0, 1, true, CycleMethod.NO_CYCLE,
+                new Stop(0, maroonColor),
+                new Stop(0.3, darkMaroonColor),
+                new Stop(0.6, lightMaroonColor),
+                new Stop(1, maroonColor)
+        );
+    
+      
+        vBox.setBackground(new Background( new BackgroundFill(gradient, CornerRadii.EMPTY, Insets.EMPTY)));
+       
+        Scene sceneLogin = new Scene(vBox, 620, 400);
+        stage.setScene(sceneLogin);
+
+        loginButton.setOnAction(event -> {
+            String username = usernameInput.getText();
+            String password = passwordInput.getText();
+
+            if (DbConnect.ValidasiLogin(username, password)) {
+                // scene3(); 
+            } else {
+                System.out.println("Login Failed");
+            }
+        });
+    }
 
 
 
