@@ -5,6 +5,7 @@ import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox; 
@@ -38,70 +39,100 @@ public class App extends Application {
 
 
 
-      public void scene5() {
+      
+    
+            if (teksTombol != null) {
+                Button tombolAksi = new Button(teksTombol);
+                tombolAksi.setStyle("-fx-background-color: #00C853; -fx-text-fill: white; -fx-background-radius: 15px; -fx-padding: 5 20 5 20;");
+                hariBox.getChildren().add(tombolAksi);
+                tombolAksi.setOnAction(event -> {
+                    switch (hari) {
+                        case "Hari 1":
+                            scene6(stage);
+                            break;
+                        case "Hari 2":
+                            sceneHari2(stage);
+                            break;
+                        case "Hari 3":
+                            sceneHari3(stage);
+                            break;
+                        case "Hari 5":
+                            sceneHari5(stage);
+                            break;
+                        case "Hari 6":
+                            sceneHari6(stage);
+                            break;
+                        case "Hari 7":
+                            sceneHari7(stage);
+                            break;
+                    }
+                });
+            } else {
+                ImageView ikonIstirahat = new ImageView(new Image("sleep.png"));
+                ikonIstirahat.setFitWidth(20);
+                ikonIstirahat.setFitHeight(20);
+                hariBox.getChildren().add(ikonIstirahat);
+            }
+        
+            return hariBox;
+
+
+        
+        }
+        
+        
+        
+        private Button createBackButton(Stage stage) {
+            Button backButton = new Button();
+            ImageView backIcon = new ImageView(new Image("panah.png")); 
+            backIcon.setFitWidth(20);
+            backIcon.setFitHeight(20);
+            backButton.setGraphic(backIcon);
+            backButton.setOnAction(e -> scene5());
+            return backButton;
+        }
+    
+
+        
+        public void scene6(Stage stage) {
             VBox layoutUtama = new VBox(10);
             layoutUtama.setPadding(new Insets(10));
             layoutUtama.setAlignment(Pos.TOP_CENTER);
             layoutUtama.setStyle("-fx-background-color: #f5f5f5;");
         
-            HBox row1 = new HBox(50);
-            row1.setAlignment(Pos.CENTER);
-            row1.getChildren().add(buatHariBox("Hari 1", "6 menit", "Mulai", true));
+            Label latihanLabel = new Label("Latihan Hari 1 (5)");
+            latihanLabel.setFont(Font.font("Arial", FontWeight.BOLD, 16));
+
+            Button backButton = createBackButton(stage);
+
+
+
+            HBox headerBox = new HBox(10);
+            headerBox.setAlignment(Pos.CENTER_LEFT);
+            headerBox.getChildren().addAll(latihanLabel, backButton);
         
-            HBox row2 = new HBox(50);
-            row2.setAlignment(Pos.CENTER);
-            row2.getChildren().addAll(
-                    buatHariBox("Hari 2", "7 menit", "Mulai", false),
-                    buatHariBox("Hari 3", "6 menit", "Mulai", false)
+            VBox latihanBox = new VBox(10);
+            latihanBox.setAlignment(Pos.CENTER_LEFT);
+            latihanBox.setPadding(new Insets(20));
+            latihanBox.setStyle("-fx-background-color: #FFFFFF; -fx-background-radius: 10px;");
+        
+            latihanBox.getChildren().addAll(
+                    buatLatihanBox("Jumping jack", "00:30", "jumpingjack.png"),
+                    buatLatihanBox("Sit-Up", "x16", "situp.png"),
+                    buatLatihanBox("Angkat Lutut/Berlari", "00:30", "muscle.png"),
+                    buatLatihanBox("Push-up", "x3", "pushup.png"),
+                    buatLatihanBox("Crunch sepeda", "x16", "bicycle.png")
             );
+            latihanBox.setPadding(new Insets(20, 20, 20, 50));
         
-            HBox row3 = new HBox(50);
-            row3.setAlignment(Pos.CENTER);
-            row3.getChildren().addAll(
-                    buatHariBox("Hari 4", "Hari Istirahat!", null, false),
-                    buatHariBox("Hari 5", "6 menit", "Mulai", false)
-            );
-        
-            HBox row4 = new HBox(50);
-            row4.setAlignment(Pos.CENTER);
-            row4.getChildren().addAll(
-                    buatHariBox("Hari 6", "6 menit", "Mulai", false),
-                    buatHariBox("Hari 7", "6 menit", "Mulai", false)
-            );
-        
-            layoutUtama.getChildren().addAll(row1, row2, row3, row4);
+            layoutUtama.getChildren().addAll(headerBox, latihanBox);
         
             Scene scene = new Scene(layoutUtama, 620, 400);
             stage.setScene(scene);
             stage.show();
         }
-        
-        private HBox buatHariBox(String hari, String menit, String teksTombol, boolean hariPertama) {
-            HBox hariBox = new HBox(10);
-            hariBox.setAlignment(Pos.CENTER_LEFT);
-            hariBox.setPadding(new Insets(20, 20, 20, 50));
-            hariBox.setStyle("-fx-background-color: #FFFFFF; -fx-background-radius: 10px;");
-            hariBox.setPrefWidth(290);
-        
-            VBox infoHariBox = new VBox(5);
-            infoHariBox.setAlignment(Pos.CENTER_LEFT);
-        
-            Label labelHari = new Label(hari);
-            labelHari.setFont(Font.font("Arial", FontWeight.BOLD, 16));
-        
-            Label labelMenit = new Label(menit);
-            labelMenit.setFont(Font.font("Arial", FontWeight.NORMAL, 14));
-        
-            infoHariBox.getChildren().addAll(labelHari, labelMenit);
-            hariBox.getChildren().add(infoHariBox);
-        
 
 
-
-
-
-
-            return hariBox;
 
 
         }
