@@ -1,28 +1,26 @@
 package id.project.sfw;
 import javafx.stage.Stage;
-import javafx.util.Duration;
-import id.project.sfw.confiq.DbConnect;
-import javafx.animation.PauseTransition;
+
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Hyperlink;
+
 import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.HBox;
+
 import javafx.scene.layout.VBox; 
 import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.LinearGradient;
 import javafx.scene.paint.Stop;
 import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.GridPane;
+
 
 
 
@@ -50,91 +48,76 @@ public class App extends Application {
 
 
 
-   private void scene3() {
 
-        Label heightLabel = new Label("Height (m)");
-        heightField = new TextField();
-        heightLabel.setTextFill(Color.WHITE);
-        heightField.setPromptText("Enter");
+      public void scene4(double bmi) {
+            String category;
+            Label resultLabel = new Label("RESULT ANDA: " + String.format("%.2f", bmi));
+            resultLabel.setStyle("-fx-font-family: 'Sans-Serif'; -fx-font-size: 18px; -fx-font-weight: bold;");
+            resultLabel.setTextFill(Color.WHITE);
+            Image image = new Image("bmi.jpeg");
+            ImageView imageView = new ImageView(image);
+            imageView.setFitWidth(400);
+            imageView.setFitHeight(200);
 
-        Label weightLabel = new Label("Weight (kg)");
-        weightField = new TextField();
-        weightLabel.setTextFill(Color.WHITE);
-        weightField.setPromptText("Enter");
-        
-        Label bmiLabel = new Label("BMI");
-        bmiField = new TextField();
-        bmiLabel.setTextFill(Color.WHITE);
-        bmiField.setEditable(false);
+            if (bmi < 18.5) {
+                category = "UNDERWEIGHT";
+            } else if (bmi >= 18.5 && bmi <= 24.9) {
+                category = "NORMAL";
+            } else {
+                category = "OVERWEIGHT";
+            }
 
-        GridPane inputGrid = new GridPane();
-        inputGrid.setAlignment(Pos.CENTER);
-        inputGrid.setHgap(10);
-        inputGrid.setVgap(10);
-        inputGrid.setPadding(new Insets(25, 25, 25, 25));
+            Label categoryLabel = new Label(" ANDA TERMASUK GOLONGAN " + category);
+            categoryLabel.setStyle("-fx-font-family: 'Poppins'; -fx-font-size: 16px; -fx-font-weight: bold;");
+            categoryLabel.setTextFill(Color.WHITE);
 
-        inputGrid.add(heightLabel, 0, 0);
-        inputGrid.add(heightField, 1, 0);
-        inputGrid.add(weightLabel, 0, 1);
-        inputGrid.add(weightField, 1, 1);
-        inputGrid.add(bmiLabel, 0, 2);
-        inputGrid.add(bmiField, 1, 2);
+            Button rekomendasiButton = new Button("REKOMENDASI");
+            Color newColorRekomendasi = Color.web("F4EEE0");
+            rekomendasiButton.setTextFill(Color.BLACK);
+            rekomendasiButton.setBackground(new Background(new BackgroundFill(newColorRekomendasi, new CornerRadii(300), Insets.EMPTY)));
+            rekomendasiButton.setPadding(new Insets(5, 15, 5, 10));
+            rekomendasiButton.setMaxWidth(125);
+            rekomendasiButton.setMinHeight(0);
+            // rekomendasiButton.setOnAction(event -> scene5());
 
-        Button calculateButton = new Button("Calculate");
-        calculateButton.setOnAction(event -> calculateBMI());
+            Button btnExit = new Button("EXIT");
+            Color newColor3 = Color.web("F4EEE0");
+            btnExit.setTextFill(Color.BLACK);
+            btnExit.setBackground(new Background(new BackgroundFill(newColor3, new CornerRadii(100), Insets.EMPTY)));
+            btnExit.setPadding(new Insets(5, 15, 5, 10));
+            btnExit.setMaxWidth(125);
+            btnExit.setMinHeight(0);
+            btnExit.setOnAction(event -> stage.close());
 
-        Button clearButton = new Button("Clear");
-        clearButton.setOnAction(event -> clearFields());
+            Label rekomendasiLabel = new Label("Berikut Rekomendasi Latihan menuju Golongan Normal ");
+            rekomendasiLabel.setStyle("-fx-font-family: 'Poppins'; -fx-font-size: 16px; -fx-font-weight: bold;");
+            rekomendasiLabel.setTextFill(Color.WHITE);
 
-        Button exitButton = new Button("Exit");
-        exitButton.setOnAction(event -> stage.close());
+            VBox vBox = new VBox(20, resultLabel, imageView, categoryLabel);
+            if (bmi < 18.5 || bmi >= 25) {
+                vBox.getChildren().addAll(rekomendasiLabel, rekomendasiButton);
+            } else {
+                Label normalLabel = new Label("Selamat Anda tergolong normal");
+                normalLabel.setTextFill(Color.WHITE);
+                vBox.getChildren().addAll(normalLabel, btnExit);
+            }
 
-        HBox buttonBox = new HBox(10, calculateButton, clearButton, exitButton);
-        buttonBox.setAlignment(Pos.CENTER);
-        VBox vbox = new VBox(10, inputGrid, buttonBox);
+            vBox.setAlignment(Pos.CENTER);
+            Color maroonColor = Color.rgb(128, 0, 0);
+            Color darkMaroonColor = Color.rgb(102, 0, 0);
+            Color lightMaroonColor = Color.rgb(153, 0, 0);
+            LinearGradient gradient = new LinearGradient(
+                    0, 0, 0, 1, true, CycleMethod.NO_CYCLE,
+                    new Stop(0, maroonColor),
+                    new Stop(0.3, darkMaroonColor),
+                    new Stop(0.6, lightMaroonColor),
+                    new Stop(1, maroonColor)
+            );
+            vBox.setBackground(new Background(new BackgroundFill(gradient, CornerRadii.EMPTY, Insets.EMPTY)));
 
-        Image image = new Image("/bmi.jpeg");
-        ImageView imageView = new ImageView(image);
-
-        VBox root = new VBox(2, vbox, imageView);
-        root.setAlignment(Pos.CENTER);
-        root.setPadding(new Insets(10));
-
-        Color maroonColor = Color.rgb(128, 0, 0); 
-        Color darkMaroonColor = Color.rgb(102, 0, 0); 
-        Color lightMaroonColor = Color.rgb(153, 0, 0); 
-
-        LinearGradient gradient = new LinearGradient(
-            0, 0, 0, 1, true, CycleMethod.NO_CYCLE,
-            new Stop(0, maroonColor),
-            new Stop(0.3, darkMaroonColor),
-            new Stop(0.6, lightMaroonColor),
-            new Stop(1, maroonColor)
-        );
-
-        root.setBackground(new Background( new BackgroundFill(gradient, CornerRadii.EMPTY, Insets.EMPTY)));
-
-        Scene scene3 = new Scene(root, 620, 400);
-        stage.setScene(scene3);
-    }
-
-    private void calculateBMI() {
-        try {
-            double height = Double.parseDouble(heightField.getText());
-            double weight = Double.parseDouble(weightField.getText());
-            double bmi = weight / (height * height);
-            bmiField.setText(String.format("%.2f", bmi));
-        } catch (NumberFormatException e) {
-            bmiField.setText("Invalid input");
+            Scene scene4 = new Scene(vBox, 620, 400);
+            stage.setScene(scene4);
         }
-    }
-
-    private void clearFields() {
-        heightField.clear();
-        weightField.clear();
-        bmiField.clear();
-    }
-
 
 
 
