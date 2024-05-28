@@ -19,7 +19,10 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.LinearGradient;
 import javafx.scene.paint.Stop;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.HBox;
 
 
 
@@ -156,6 +159,122 @@ public class App extends Application {
             stage.setScene(scene);
             stage.show();
         }
+
+
+        private HBox buatHariBox(String hari, String menit, String teksTombol, boolean hariPertama) {
+            HBox hariBox = new HBox(10);
+            hariBox.setAlignment(Pos.CENTER_LEFT);
+            hariBox.setPadding(new Insets(20, 20, 20, 50));
+            hariBox.setStyle("-fx-background-color: #FFFFFF; -fx-background-radius: 10px;");
+            hariBox.setPrefWidth(290);
+        
+            VBox infoHariBox = new VBox(5);
+            infoHariBox.setAlignment(Pos.CENTER_LEFT);
+        
+            Label labelHari = new Label(hari);
+            labelHari.setFont(Font.font("Arial", FontWeight.BOLD, 16));
+        
+            Label labelMenit = new Label(menit);
+            labelMenit.setFont(Font.font("Arial", FontWeight.NORMAL, 14));
+        
+            infoHariBox.getChildren().addAll(labelHari, labelMenit);
+            hariBox.getChildren().add(infoHariBox);
+        
+
+            Label Keterangan = new Label("NOTE: Lakukan latihan ini sebanyak 7x4 hari !!!");
+            Keterangan.setTextFill(Color.RED);
+            HBox masukBox = new HBox(5, Keterangan);
+            masukBox.setAlignment(Pos.CENTER);
+            
+
+
+
+            if (teksTombol != null) {
+                Button tombolAksi = new Button(teksTombol);
+                tombolAksi.setStyle("-fx-background-color: #00C853; -fx-text-fill: white; -fx-background-radius: 15px; -fx-padding: 5 20 5 20;");
+                hariBox.getChildren().add(tombolAksi);
+                tombolAksi.setOnAction(event -> {
+                    switch (hari) {
+                        case "Hari 1":
+                            scene6(stage);
+                            break;
+                        case "Hari 2":
+                            sceneHari2(stage);
+                            break;
+                        case "Hari 3":
+                            sceneHari3(stage);
+                            break;
+                        case "Hari 5":
+                            sceneHari5(stage);
+                            break;
+                        case "Hari 6":
+                            sceneHari6(stage);
+                            break;
+                        case "Hari 7":
+                            sceneHari7(stage);
+                            break;
+                    }
+                });
+            } else {
+                ImageView ikonIstirahat = new ImageView(new Image("sleep.png"));
+                ikonIstirahat.setFitWidth(20);
+                ikonIstirahat.setFitHeight(20);
+                hariBox.getChildren().add(ikonIstirahat);
+            }
+        
+            return hariBox;
+
+
+        
+        }
+
+        private Button createBackButton(Stage stage) {
+            Button backButton = new Button();
+            ImageView backIcon = new ImageView(new Image("panah.png"));
+            backIcon.setFitWidth(20);
+            backIcon.setFitHeight(20);
+            backButton.setGraphic(backIcon);
+            backButton.setOnAction(e -> scene5());
+            return backButton;
+        }
+
+        public void scene6(Stage stage) {
+            VBox layoutUtama = new VBox(10);
+            layoutUtama.setPadding(new Insets(10));
+            layoutUtama.setAlignment(Pos.TOP_CENTER);
+            layoutUtama.setStyle("-fx-background-color: #f5f5f5;");
+
+            Label latihanLabel = new Label("Latihan Hari 1 (5)");
+            latihanLabel.setFont(Font.font("Arial", FontWeight.BOLD, 16));
+
+            Button backButton = createBackButton(stage);
+
+            HBox headerBox = new HBox(10);
+            headerBox.setAlignment(Pos.CENTER_LEFT);
+            headerBox.getChildren().addAll(latihanLabel, backButton);
+
+            VBox latihanBox = new VBox(10);
+            latihanBox.setAlignment(Pos.CENTER_LEFT);
+            latihanBox.setPadding(new Insets(20));
+            latihanBox.setStyle("-fx-background-color: #FFFFFF; -fx-background-radius: 10px;");
+
+            latihanBox.getChildren().addAll(
+                    buatLatihanBox("Jumping jack", "00:30", "jumpingjack.png"),
+                    buatLatihanBox("Sit-Up", "x16", "situp.png"),
+                    buatLatihanBox("Angkat Lutut/Berlari", "00:30", "muscle.png"),
+                    buatLatihanBox("Push-up", "x3", "pushup.png"),
+                    buatLatihanBox("Crunch sepeda", "x16", "bicycle.png"));
+            latihanBox.setPadding(new Insets(20, 20, 20, 50));
+
+            layoutUtama.getChildren().addAll(headerBox, latihanBox);
+
+            Scene scene = new Scene(layoutUtama, 620, 400);
+            stage.setScene(scene);
+            stage.show();
+        }
+
+
+
 
 
 
