@@ -119,6 +119,46 @@ public class App extends Application {
 
 
 
+    public void scene5() {
+            VBox layoutUtama = new VBox(10);
+            layoutUtama.setPadding(new Insets(10));
+            layoutUtama.setAlignment(Pos.TOP_CENTER);
+            layoutUtama.setStyle("-fx-background-color: #f5f5f5;");
+        
+            HBox row1 = new HBox(50);
+            row1.setAlignment(Pos.CENTER);
+            row1.getChildren().add(buatHariBox("Hari 1", "6 menit", "Mulai", true));
+        
+            HBox row2 = new HBox(50);
+            row2.setAlignment(Pos.CENTER);
+            row2.getChildren().addAll(
+                    buatHariBox("Hari 2", "7 menit", "Mulai", false),
+                    buatHariBox("Hari 3", "6 menit", "Mulai", false)
+            );
+        
+            HBox row3 = new HBox(50);
+            row3.setAlignment(Pos.CENTER);
+            row3.getChildren().addAll(
+                    buatHariBox("Hari 4", "Hari Istirahat!", null, false),
+                    buatHariBox("Hari 5", "6 menit", "Mulai", false)
+            );
+        
+            HBox row4 = new HBox(50);
+            row4.setAlignment(Pos.CENTER);
+            row4.getChildren().addAll(
+                    buatHariBox("Hari 6", "6 menit", "Mulai", false),
+                    buatHariBox("Hari 7", "6 menit", "Mulai", false)
+            );
+        
+            layoutUtama.getChildren().addAll(row1, row2, row3, row4);
+        
+            Scene scene = new Scene(layoutUtama, 620, 400);
+            stage.setScene(scene);
+            stage.show();
+        }
+
+
+
       
 
 
