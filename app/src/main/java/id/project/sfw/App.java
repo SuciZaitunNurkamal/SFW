@@ -38,13 +38,13 @@ public class App extends Application {
     }
 
 
-    public void sceneHari2(Stage stage) {
+    public void sceneHari3(Stage stage) {
         VBox layoutUtama = new VBox(10);
         layoutUtama.setPadding(new Insets(10));
         layoutUtama.setAlignment(Pos.TOP_CENTER);
         layoutUtama.setStyle("-fx-background-color: #f5f5f5;");
     
-        Label latihanLabel = new Label("Latihan Hari 2 (5)");
+        Label latihanLabel = new Label("Latihan Hari 3 (5)");
         latihanLabel.setFont(Font.font("Arial", FontWeight.BOLD, 16));
     
         Button backButton = createBackButton(stage);
@@ -59,11 +59,11 @@ public class App extends Application {
         latihanBox.setStyle("-fx-background-color: #FFFFFF; -fx-background-radius: 10px;");
     
         latihanBox.getChildren().addAll(
-                buatLatihanBox("Jumping Jacks", "00:30", "jumpingjack.png"),
-                buatLatihanBox("Push-Up", "x16", "pushup.png"),
                 buatLatihanBox("Plank", "00:30", "plank.png"),
-                buatLatihanBox("Sit-up", "x3", "situp.png"),
-                buatLatihanBox("Tricip Dip", "x16", "Tricip.png")
+                buatLatihanBox("Sit-up", "x16", "situp.png"),
+                buatLatihanBox("Bicycle Crunches", "00:30", "bicycle.png"),
+                buatLatihanBox("Tricep Dips", "x3", "gym.png"),
+                buatLatihanBox("Lompat tali", "x16", "LompatTali.png")
         );
         latihanBox.setPadding(new Insets(20, 20, 20, 50));
     
@@ -73,7 +73,5 @@ public class App extends Application {
         stage.setScene(scene);
         stage.show();
     }
-    
-
 
 }
