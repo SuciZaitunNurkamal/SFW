@@ -38,13 +38,13 @@ public class App extends Application {
     }
 
 
-    public void sceneHari3(Stage stage) {
+    public void sceneHari5(Stage stage) {
         VBox layoutUtama = new VBox(10);
         layoutUtama.setPadding(new Insets(10));
         layoutUtama.setAlignment(Pos.TOP_CENTER);
         layoutUtama.setStyle("-fx-background-color: #f5f5f5;");
     
-        Label latihanLabel = new Label("Latihan Hari 3 (5)");
+        Label latihanLabel = new Label("Latihan Hari 5 (5)");
         latihanLabel.setFont(Font.font("Arial", FontWeight.BOLD, 16));
     
         Button backButton = createBackButton(stage);
@@ -52,18 +52,18 @@ public class App extends Application {
         HBox headerBox = new HBox(10);
         headerBox.setAlignment(Pos.CENTER_LEFT);
         headerBox.getChildren().addAll(latihanLabel, backButton);
-    
+
         VBox latihanBox = new VBox(10);
         latihanBox.setAlignment(Pos.CENTER_LEFT);
         latihanBox.setPadding(new Insets(20));
         latihanBox.setStyle("-fx-background-color: #FFFFFF; -fx-background-radius: 10px;");
     
         latihanBox.getChildren().addAll(
-                buatLatihanBox("Plank", "00:30", "plank.png"),
-                buatLatihanBox("Sit-up", "x16", "situp.png"),
-                buatLatihanBox("Bicycle Crunches", "00:30", "bicycle.png"),
-                buatLatihanBox("Tricep Dips", "x3", "gym.png"),
-                buatLatihanBox("Lompat tali", "x16", "LompatTali.png")
+                buatLatihanBox("Knee Push Ups", "00:30", "kneepush.png"),
+                buatLatihanBox("Plank", "x16", "plank.png"),
+                buatLatihanBox("Pull-Up", "00:30", "pullUp.png"),
+                buatLatihanBox("Lompat Tali", "x3", "LompatTali.png"),
+                buatLatihanBox("Triceps dips", "x16", "Tricip.png")
         );
         latihanBox.setPadding(new Insets(20, 20, 20, 50));
     
