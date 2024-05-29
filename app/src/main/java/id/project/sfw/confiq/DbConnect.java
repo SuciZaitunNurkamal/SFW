@@ -1,25 +1,4 @@
-package denn.bismillahproject.confiq;
-
-
-
-// import java.sql.PreparedStatement;
-// import java.sql.Connection ;
-// import java.sql.SQLException;
-// import java.sql.ResultSet;
-// import java.sql.DriverManager;
-
-
-// public class DbConnect {
-//     private static final String DB_URL = "jdbc:sqlite:db/db_user.db";
-
-//     private static Connection connection;
-//     private static  PreparedStatement preparedStatement;
-//     private static ResultSet resulSet;
-    
-
-
-
-
+package id.project.sfw.confiq;
 
 import java.sql.*;
 
@@ -47,7 +26,7 @@ public class DbConnect {
     public static boolean checkUsername(String username) {
         try (Connection conn = DriverManager.getConnection(DB_URL);
         Statement stmt = conn.createStatement()) {
-            String sql = "SELECT COUNT(*) FROM users WHERE username = ?";
+            String sql = "SELECT username,password FROM users WHERE username = ?";
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, username);
             ResultSet rs = pstmt.executeQuery();
@@ -78,7 +57,7 @@ public class DbConnect {
 
 
     public static boolean validatePassword(String password) {
-        if (password.length() < 3 || password.length() > 10 || password.contains(" ")) {
+        if (password.length() < 3 || password.length() > 15 || password.contains(" ")) {
             return false;
         }
         else{
@@ -101,19 +80,9 @@ public class DbConnect {
     }
 
 
-
-
-   
-
-    // public static void connection(){
-    //     try {
-    //         connection = DriverManager.getConnection(DB_URL);
-    //         System.out.println("Database connected");
-    //     } catch (SQLException e) {
-    //         e.printStackTrace();
-    //     }
-    // }
-    
 }
+
+
+
 
 
