@@ -1,6 +1,7 @@
     package id.project.sfw;
 
     import javafx.stage.Stage;
+    import id.project.sfw.confiq.DbConnect;
     import javafx.application.Application;
     import javafx.geometry.Insets;
     import javafx.geometry.Pos;
@@ -23,7 +24,6 @@
     import javafx.scene.text.Font;
     import javafx.scene.text.FontWeight;
     import javafx.scene.layout.CornerRadii;
-    import id.project.sfw.confiq.DbConnect;
 
     public class App extends Application {
             
