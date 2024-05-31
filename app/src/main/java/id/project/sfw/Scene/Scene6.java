@@ -1,6 +1,6 @@
-package id.project.sfw.Hari;
+package id.project.sfw.Scene;
 
-import id.project.sfw.Scene.SceneObe;
+
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -16,24 +16,23 @@ import javafx.stage.Stage;
 
 
 
-public class Hari3 {
-    private final Stage stage;
-    private String username;
-    private double bmi;
 
-    public Hari3(Stage stage,double bmi,String username) {
+
+
+public class Scene6 {
+    private final Stage stage;
+
+    public Scene6(Stage stage) {
         this.stage = stage;
-        this.bmi = bmi;
-        this.username = username;
     }
 
     public void display() {
         VBox layoutUtama = new VBox(10);
         layoutUtama.setPadding(new Insets(10));
         layoutUtama.setAlignment(Pos.TOP_CENTER);
-        layoutUtama.setId("latihan-box3");
+        layoutUtama.setStyle("-fx-background-color: #f5f5f5;");
 
-        Label latihanLabel = new Label("Latihan Hari 3 (5)");
+        Label latihanLabel = new Label("Latihan Hari 1 (5)");
         latihanLabel.setFont(Font.font("Arial", FontWeight.BOLD, 16));
 
         Button backButton = createBackButton(stage);
@@ -45,33 +44,31 @@ public class Hari3 {
         VBox latihanBox = new VBox(10);
         latihanBox.setAlignment(Pos.CENTER_LEFT);
         latihanBox.setPadding(new Insets(20));
-        latihanBox.setId("layout-utama3");
+        latihanBox.setStyle("-fx-background-color: #FFFFFF; -fx-background-radius: 10px;");
 
         latihanBox.getChildren().addAll(
-                buatLatihanBox("Plank", "00:30", "/images/plank.png"),
-                buatLatihanBox("Sit-up", "x16", "/images/situp.png"),
-                buatLatihanBox("Bicycle Crunches", "00:30", "/images/bicycle.png"),
-                buatLatihanBox("Tricep Dips", "x3", "/images/gym.png"),
-                buatLatihanBox("Lompat tali", "x16", "/images/LompatTali.png")
+                buatLatihanBox("Jumping jack", "00:30", "jumpingjack.png"),
+                buatLatihanBox("Sit-Up", "x16", "situp.png"),
+                buatLatihanBox("Angkat Lutut/Berlari", "00:30", "muscle.png"),
+                buatLatihanBox("Push-up", "x3", "pushup.png"),
+                buatLatihanBox("Crunch sepeda", "x16", "bicycle.png")
         );
         latihanBox.setPadding(new Insets(20, 20, 20, 50));
 
         layoutUtama.getChildren().addAll(headerBox, latihanBox);
 
         Scene scene = new Scene(layoutUtama, 620, 400);
-        scene.getStylesheets().add(getClass().getResource("/styles/style.css").toExternalForm());
         stage.setScene(scene);
         stage.show();
     }
 
     private Button createBackButton(Stage stage) {
         Button backButton = new Button();
-        ImageView backIcon = new ImageView(new Image("/images/panah.png"));
+        ImageView backIcon = new ImageView(new Image("panah.png"));
         backIcon.setFitWidth(20);
         backIcon.setFitHeight(20);
         backButton.setGraphic(backIcon);
- 
-        backButton.setOnAction(e -> new SceneObe(stage, bmi,username).display());
+        backButton.setOnAction(e -> new Scene5(stage, 0).display());
         return backButton;
     }
 

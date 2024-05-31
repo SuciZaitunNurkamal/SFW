@@ -2,7 +2,7 @@ package id.project.sfw.Hari;
 
 
 
-import id.project.sfw.SceneObe;
+import id.project.sfw.Scene.SceneObe;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
