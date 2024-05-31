@@ -1,0 +1,206 @@
+
+/*  Scene 1nya */
+#label-scene {
+    -fx-font-family: 'Sans-Serif'; 
+    -fx-font-size: 30px; 
+    -fx-font-weight: bold;
+}
+
+#button-scene1 {
+    -fx-background-color: #008000;
+    -fx-font-family: 'Sans-Serif';
+    -fx-font-weight: bold;
+    -fx-padding: 10px 70px;
+    -fx-font-size: 16px;
+    -fx-border-color: black;
+    -fx-border-width: 1px;
+    -fx-border-radius: 3;
+    -fx-text-fill: white; 
+}
+
+
+/* Scene2 */
+#label-menu{
+    -fx-font-family: 'Sans-Serif'; 
+    -fx-font-size: 25px; 
+    -fx-font-weight: bold;
+}
+
+
+  
+
+/* BMI INPUT*/
+
+#label-height, #label-weight {
+    -font-family: 'Inter', sans-serif;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+
+#label-Sign{
+    -fx-font-size: 16px;
+
+}
+
+#height-field, #weight-field {
+    -fx-font-family: 'Sans-Serif';
+    -fx-font-size: 14px;
+    -fx-border-color: #000000;
+    -fx-alignment: center;
+    -fx-max-width: 200px;
+}
+
+
+
+#calculate-button {
+    -fx-background-color: #F4EEE0;
+    -fx-text-fill: black;
+    -fx-font-family: 'Sans-Serif';
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-border-radius: 300px;
+}
+
+
+
+/* Scene4 */
+#label-result, #category-label, #rekomendasi-label{
+    -fx-font-family: 'Poppins';
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+#back-button {
+    -fx-background-color: transparent;
+}
+
+
+
+
+
+
+
+/* Scene Obesitas */
+
+#layout-scene{
+    -fx-background-color: #f5f5f5;
+}
+
+#back-btn{
+    -fx-background-color: transparent;
+}
+
+
+/*  Sign Up */
+#title-Sign {
+    -fx-font-family: 'Sans-Serif';
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+#label-errorSign {
+    -fx-font-size: 10px;
+    -fx-text-fill: white;
+    -fx-font-family: 'Sans-Serif';
+}
+
+#button-daftar {
+    -fx-background-color: #F4EEE0;
+    -fx-text-fill: black;
+    -fx-padding: 5px 15px;
+    -fx-font-family: 'Sans-Serif';
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-border-radius: 300;
+}
+
+
+
+
+
+
+/* Login */
+#label-Login {
+    -fx-font-family: 'Sans-Serif'; 
+    -fx-font-size: 30px; 
+    -fx-font-weight: bold;
+}
+
+
+#label-eror {
+    -fx-font-size: 14px; 
+    -fx-text-fill: WHITE; 
+    -fx-font-family: 'Sans-Serif';
+}
+
+#text-field{
+    -fx-font-family: 'Sans-Serif';
+    -fx-font-size: 14px; 
+    -fx-border-color: #000000;
+    -fx-prompt-text-fill: rgba(0, 0, 0, 0.5);
+}
+
+
+
+#field-pw{
+    -fx-font-family: 'Sans-Serif';
+    -fx-font-size: 14px; 
+    -fx-border-color: #000000; 
+    -fx-prompt-text-fill: rgba(0, 0, 0, 0.5);
+}
+
+
+
+
+/* Hari 2 */
+#layout-utama{
+-fx-background-color: #f5f5f5;  
+  
+}
+
+#latihan-box{
+    -fx-background-color: #FFFFFF; -fx-background-radius: 10px;
+}
+
+
+
+/* Hari3 */
+#layout-utama3{
+    fx-background-color: #f5f5f5;  
+}
+
+
+#latihan-box3{
+    -fx-background-color: #FFFFFF; -fx-background-radius: 10px;
+}
+
+
+/* 5*/
+#layout-utama5{
+    -fx-background-color: #f5f5f5;  
+}
+
+#latihan-box5{
+    -fx-background-color: #FFFFFF; -fx-background-radius: 10px;
+}
+/* 6*/
+#layout-utama6{
+    -fx-background-color: #f5f5f5;  
+}
+
+#latihan-box6{
+    -fx-background-color: #FFFFFF; -fx-background-radius: 10px;
+}
+/* 7*/
+#layout-utama7{
+    -fx-background-color: #f5f5f5;  
+}
+
+#latihan-box7{
+    -fx-background-color: #FFFFFF; -fx-background-radius: 10px;
+}
+
